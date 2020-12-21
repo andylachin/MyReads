@@ -2,13 +2,14 @@ import React from 'react'
 
 const Book = props => {
   
+  
   const changed=(e)=>{
   	e.preventDefault()
-    props.changed(e.target.value,props.title)
+    const shelf = e.target.value
+    props.changeShelf(book,shelf)
   }
   
-  
-  const {image,title,authors,shelf}=props
+  const {image,title,authors,shelf,book}=props
 	return(
   <li>
                         <div className="book">

@@ -1,31 +1,80 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import serializeForm from 'form-serialize'
+import * as BooksAPI from './BooksAPI'
+import Book from './Book'
+import PropTypes from 'prop-types'
 
 class SearchPage extends Component{
+  state = {
+  	query: '',
+    searchedBooks: []
+  }
+
+static Proptypes = {
+	
+}
+
+updateQuery = e => {
+  	this.setState({query: e.target.value})
+}
+
+handleSearch = e => {
+  e.preventDefault()
+  const query = this.state.query.trim()
+	BooksAPI.search(query).then(res=>{
+    	this.setState({searchedBooks: res})
+    })
+  }
+  
+changeShelf = shelf => {
+	console.log(shelf)
+}
+
 	render(){
-    	return(
+    const {query, searchedBooks} = this.state
+	
+      
+		return(
         	<div className="search-books">
+          
             <div className="search-books-bar">
-          	<Link
-          		className="close-search"
-          		to='/'
-          >Close</Link>
+          		<Link
+          			className="close-search"
+          			to='/'
+          		>Close</Link>
               
-              <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
-                <input type="text" placeholder="Search by title or author"/>
-
-              </div>
+              <form className="search-books-input-wrapper"
+          		
+          	>
+                <input 
+					type="text" 
+					placeholder="Search by title or author" 						
+					name="bookTitle" 												
+					value={query}	
+					onChange={this.updateQuery}
+				/>
+				<button onClick={this.handleSearch}>Search Books</button>
+				
+					
+              </form>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+                 <div>
+					
+					<ol className="books-grid">
+					{searchedBooks.map(book=>(
+                    	<Book
+                     		title={book.title}
+							authors={book.authors}
+							image={book.imageLinks.thumbnail}
+							changed={this.changeShelf}
+							key={book.id}
+                     	/>
+                    ))}
+				</ol>
+                 </div>
+                 
             </div>
           </div>
         )
