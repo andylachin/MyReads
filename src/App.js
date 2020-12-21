@@ -20,7 +20,20 @@ componentDidMount(){
 }
 
 changeShelf = (book,shelf) => {
-	console.log(book,shelf)
+	 BooksAPI.update(book,shelf)
+       .then(()=>(
+       	this.setState((prevstate)=>({
+      		books: prevstate.books.map(b =>{
+      		if (b.id===book.id){
+          		return(b.shelf=shelf);
+      		}
+     		else{
+        		return (book);
+      		}
+      	})
+      })
+      ) 
+   ));
 }
 
   render(){

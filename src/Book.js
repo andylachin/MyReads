@@ -6,10 +6,10 @@ const Book = props => {
   const changed=(e)=>{
   	e.preventDefault()
     const shelf = e.target.value
-    props.changeShelf(book,shelf)
+    props.changeShelf(props.book,shelf)
   }
   
-  const {image,title,authors,shelf,book}=props
+  const {image,title,authors,shelf}=props
 	return(
   <li>
                         <div className="book">
