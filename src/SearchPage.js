@@ -27,49 +27,42 @@ handleSearch = e => {
     })
   }
   
-changeShelf = shelf => {
-	console.log(shelf)
+changeShelf = (book,shelf) => {
+	this.props.addBook(book,shelf)
 }
 
 	render(){
-    const {query, searchedBooks} = this.state
-	
-      
 		return(
         	<div className="search-books">
-          
-            <div className="search-books-bar">
+          	<div className="search-books-bar">
           		<Link
           			className="close-search"
           			to='/'
           		>Close</Link>
-              
-              <form className="search-books-input-wrapper"
-          		
-          	>
+            <form className="search-books-input-wrapper">
                 <input 
 					type="text" 
 					placeholder="Search by title or author" 						
 					name="bookTitle" 												
-					value={query}	
+					value={this.state.query}	
 					onChange={this.updateQuery}
 				/>
 				<button onClick={this.handleSearch}>Search Books</button>
-				
-					
-              </form>
+			</form>
             </div>
             <div className="search-books-results">
                  <div>
-					
 					<ol className="books-grid">
-					{searchedBooks.map(book=>(
+					{this.state.searchedBooks.map(book=>(
                     	<Book
                      		title={book.title}
 							authors={book.authors}
 							image={book.imageLinks.thumbnail}
 							changed={this.changeShelf}
 							key={book.id}
+							changeShelf={this.changeShelf}
+							book={book.id}
+							shelf={book.shelf}
                      	/>
                     ))}
 				</ol>

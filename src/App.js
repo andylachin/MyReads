@@ -19,21 +19,14 @@ componentDidMount(){
 })
 }
 
-changeShelf = (book,shelf) => {
-	 BooksAPI.update(book,shelf)
-       .then(()=>(
-       	this.setState((prevstate)=>({
-      		books: prevstate.books.map(b =>{
-      		if (b.id===book.id){
-          		return(b.shelf=shelf);
-      		}
-     		else{
-        		return (book);
-      		}
-      	})
-      })
-      ) 
-   ));
+
+changeShelf=(book,shelf)=>{
+	BooksAPI.update(book,shelf).then((res)=>{
+    	book.shelf=shelf;
+      this.setState((prevState)=>({
+      	books:prevState.books.filter((b)=>b.id!==book.id).concat(book)
+      }))
+    })
 }
 
   render(){
@@ -48,6 +41,7 @@ changeShelf = (book,shelf) => {
 		<Route path='/search' render={()=>(
         	<SearchPage
           		books={this.state.books}
+				addBook={this.changeShelf}
           	/>
         )}/>
       </div>

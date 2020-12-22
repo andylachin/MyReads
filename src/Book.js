@@ -5,8 +5,8 @@ const Book = props => {
   
   const changed=(e)=>{
   	e.preventDefault()
-    const shelf = e.target.value
-    props.changeShelf(props.book,shelf)
+    const selectedShelf = e.target.value
+    props.changeShelf(props.book,selectedShelf)
   }
   
   const {image,title,authors,shelf}=props
