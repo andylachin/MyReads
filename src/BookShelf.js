@@ -11,7 +11,6 @@ const BookShelf = props =>{
                           <ol className="books-grid">
                          	{shelf.map(book=>(
                          		<Book
-                         			image={book.imageLinks.thumbnail}
 									title={book.title}
 									authors={book.authors}
 									shelf={book.shelf}

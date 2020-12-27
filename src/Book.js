@@ -9,12 +9,16 @@ const Book = props => {
     props.changeShelf(props.book,selectedShelf)
   }
   
-  const {image,title,authors,shelf}=props
+  const {title,authors,shelf,book}=props
 	return(
   <li>
                         <div className="book">
                           <div className="book-top">
-                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${image})` }}></div>
+                            <div className="book-cover" 
+      							style={{ width: 128, height: 193, 
+      							backgroundImage: book.imageLinks? 
+      								`url(${book.imageLinks.thumbnail})`
+								:'' }}></div>
                             <div className="book-shelf-changer">
                               <select value={shelf} onChange={changed}>
                                 <option value="move" disabled>Move to...</option>

@@ -19,7 +19,7 @@ updateQuery = e => {
 
 handleSearch = e => {
   e.preventDefault()
-  const query = this.state.query.trim()
+  const query = this.state.query
   	BooksAPI.search(query).then(res=>{
       if(query===''){
       	console.log('empty')
@@ -31,6 +31,11 @@ handleSearch = e => {
   
 changeShelf = (book,shelf) => {
 	this.props.addBook(book,shelf)
+  	this.removeBook(book)
+}
+
+removeBook(book){
+	console.log(book)
 }
 
 	render(){
@@ -56,18 +61,20 @@ changeShelf = (book,shelf) => {
             <div className="search-books-results">
                  <div>
                      <ol className="books-grid">
-					{searchedBooks.map(book=>(
+					{!searchedBooks.error && 
+                    searchedBooks.map(book=>(
                     	<Book
                      		title={book.title}
 							authors={book.authors}
-							image={book.imageLinks.thumbnail}
 							changed={this.changeShelf}
 							key={book.id}
 							changeShelf={this.changeShelf}
 							book={book}
 							shelf={book.shelf}
                      	/>
-                    ))}
+                    ))
+                    }
+					
 				</ol> 
                  </div>
                  
