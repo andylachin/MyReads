@@ -4,5 +4,5 @@ This app will allow the user to move books to his/her desired bookshelf, as well
 
 ## Here is how to implement your project
 
-*npm install
-*npm start
+* npm install
+* npm start
