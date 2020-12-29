@@ -4,6 +4,7 @@
     "form-serialize": "^0.7.2",
     "prop-types": "^15.7.2",
     "react": "^15.5.4",
+    "react-debounce-input": "^3.2.3",
     "react-dom": "^15.5.4",
     "react-router-dom": "^5.2.0",
     "sort-by": "^1.2.0"

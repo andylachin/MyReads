@@ -3,31 +3,32 @@ import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 import PropTypes from 'prop-types'
+import {DebounceInput} from 'react-debounce-input'
 
 class SearchPage extends Component{
   state = {
   	query: '',
-    searchedBooks: []
+    searchedBooks: [],
+    defaultShelf: 'None'
   }
 
 
 
 updateQuery = e => {
- this.setState({query:e.target.value})
+   e.preventDefault()
+  const query=e.target.value.trim()
+  this.setState({query})
+  if(!query){
+  	this.setState({searchedBooks: []})
+  }else{
+  	BooksAPI.search(query).then(res=>{
+  	this.setState({searchedBooks: res})
+  })
+  }
 }
 
 
-handleSearch = e => {
-  e.preventDefault()
-  const query = this.state.query
-  	BooksAPI.search(query).then(res=>{
-      if(query===''){
-      	console.log('empty')
-      }else{
-           this.setState({searchedBooks: res})
-      }
-    })
-  }
+
   
 changeShelf = (book,shelf) => {
 	this.props.addBook(book,shelf)
@@ -39,7 +40,7 @@ removeBook(book){
 }
 
 	render(){
-      const {query,searchedBooks}=this.state
+      const {query,searchedBooks,defaultShelf}=this.state
 		return(
         	<div className="search-books">
           	<div className="search-books-bar">
@@ -48,14 +49,15 @@ removeBook(book){
           			to='/'
           		>Close</Link>
             <form className="search-books-input-wrapper">
-                <input 
+                <DebounceInput
+					debounceTimeout={900}
 					type="text" 
 					placeholder="Search by title or author" 						
 					name="bookTitle" 												
 					value={query}	
 					onChange={this.updateQuery}
 				/>
-				<button onClick={this.handleSearch}>Search Books</button>
+				
 			</form>
             </div>
             <div className="search-books-results">
@@ -70,7 +72,7 @@ removeBook(book){
 							key={book.id}
 							changeShelf={this.changeShelf}
 							book={book}
-							shelf={book.shelf}
+							shelf={defaultShelf}
                      	/>
                     ))
                     }

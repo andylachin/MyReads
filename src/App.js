@@ -11,12 +11,24 @@ class BooksApp extends React.Component {
   	books: [],
   }
 
-		
+	  SHELVES = [
+  		{
+    		title: 'Currently Reading',
+    		id: 'currentlyReading'
+  		},
+  		{
+    		title: 'Want To Read',
+    		id: 'wantToRead'
+  		},
+  		{
+    		title: 'Read',
+    		id: 'read'
+  		}
+];	
 
-componentDidMount(){
-	BooksAPI.getAll().then(books=>{
+async componentDidMount(){
+	const books = await BooksAPI.getAll()
 	this.setState({books})
-})
 }
 
 
@@ -33,17 +45,19 @@ changeShelf=(book,shelf)=>{
     return (
       <div className="app">
        <Route exact path='/' render={()=>(
-    		<BookShelves
-				changeShelf={this.changeShelf}
-				books={this.state.books}
-      		/>
+    	<div>
+    		{this.SHELVES.map((shelf)=>{
+  				<BookShelves
+    				title={shelf.title}
+					changeShelf={this.changeShelf}
+					key={shelf.id}
+    			/>
+  			})}
+		</div>
     	)} />
-		<Route path='/search' render={()=>(
-        	<SearchPage
-          		books={this.state.books}
-				addBook={this.changeShelf}
-          	/>
-        )}/>
+		<Route path='/search'>
+			<SearchPage books={this.state.books} addBook={this.changeShelf} />
+		</Route>
       </div>
     )
   }

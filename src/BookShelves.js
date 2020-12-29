@@ -1,16 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import BookShelf from './BookShelf'
 
-class BookShelves extends Component{
+const BookShelves = props =>{
  
-	render(){
-      const {changeShelf,books}=this.props
-     
-      	const currentlyReading = books.filter(book=>book.shelf==='currentlyReading')
-     	const wantToRead = books.filter(book=>book.shelf==='wantToRead')
-     	const read = books.filter(book=>book.shelf==='read')
-        
+      const {title,changeShelf}=props
+  
         
      return(
           
@@ -19,21 +14,14 @@ class BookShelves extends Component{
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-          		<BookShelf
-          				title={'Currently Reading'}
-						shelf={currentlyReading}
+       			{props.books.map((book)=>{
+       				<BookShelf
+       					title={title}
 						changeShelf={changeShelf}
-          			/>
-				<BookShelf
-          				title={'Want to Read'}
-						shelf={wantToRead}
-						changeShelf={changeShelf}
-          			/>
-				<BookShelf
-          				title={'Read'}
-						shelf={read}
-						changeShelf={changeShelf}
-          			/>
+						shelf={book.shelf}
+						key={book.id}
+       				/>
+       			})}
               <div>
                 <Link
           			className="open-search"
@@ -51,7 +39,6 @@ class BookShelves extends Component{
           
        
         )
-    }
 }
 
 export default BookShelves
