@@ -3,22 +3,23 @@ import Book from './Book'
 
 const BookShelf = props =>{
   
-      const {title,changeShelf,shelf}=props
+  
+      const {books,shelfTitle,changeShelf,shelf}=props
     	return(
         <div className="bookshelf">
-                  <h2 className="bookshelf-title">{title}</h2>
+                  <h2 className="bookshelf-title">{shelfTitle}</h2>
                   <div className="bookshelf-books">
                           <ol className="books-grid">
-                         	{shelf.map(book=>(
-                         		<Book
-									title={book.title}
+							{books.map(book=>(
+                             	<Book
+                             		title={book.title}
 									authors={book.authors}
 									shelf={book.shelf}
-									key={book.id}
 									book={book}
 									changeShelf={changeShelf}
-                         		/>
-                         	))}
+									key={book.id}
+                             	/>
+                             ))}
 						</ol>
                   </div>
                 </div>

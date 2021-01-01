@@ -8,8 +8,7 @@ import {DebounceInput} from 'react-debounce-input'
 class SearchPage extends Component{
   state = {
   	query: '',
-    searchedBooks: [],
-    defaultShelf: 'None'
+    searchedBooks: []
   }
 
 
@@ -23,6 +22,7 @@ updateQuery = e => {
   }else{
   	BooksAPI.search(query).then(res=>{
   	this.setState({searchedBooks: res})
+      console.log(this.state.searchedBooks)
   })
   }
 }
@@ -31,16 +31,14 @@ updateQuery = e => {
 
   
 changeShelf = (book,shelf) => {
-	this.props.addBook(book,shelf)
-  	this.removeBook(book)
+	console.log(book,shelf)
 }
 
-removeBook(book){
-	console.log(book)
-}
+
 
 	render(){
-      const {query,searchedBooks,defaultShelf}=this.state
+      const {query,searchedBooks}=this.state
+		const {defaultShelf}=this.props
 		return(
         	<div className="search-books">
           	<div className="search-books-bar">
