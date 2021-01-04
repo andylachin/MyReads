@@ -4,7 +4,7 @@ import Book from './Book'
 const BookShelf = props =>{
   
   
-      const {books,shelfTitle,changeShelf,shelf}=props
+      const {books,shelfTitle,changeShelf}=props
     	return(
         <div className="bookshelf">
                   <h2 className="bookshelf-title">{shelfTitle}</h2>
@@ -13,7 +13,6 @@ const BookShelf = props =>{
 							{books.map(book=>(
                              	<Book
                              		title={book.title}
-									authors={book.authors}
 									shelf={book.shelf}
 									book={book}
 									changeShelf={changeShelf}

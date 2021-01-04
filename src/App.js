@@ -28,21 +28,23 @@ changeShelf=(book,shelf)=>{
 }
 
   render(){
+    const {books}=this.state
     return (
       <div className="app">
        <Route exact path='/' render={()=>(
     	<div>
     		<BookShelves
     			changeShelf={this.changeShelf}
-				books={this.state.books}
+				books={books}
     		/>
 		</div>
     	)} />
 		<Route path='/search'>
 			<SearchPage 
-				defaultShelf={}
+				book={this.state.books.map(book=>book)}
 				books={this.state.books} 
 				addBook={this.changeShelf} 
+				shelf={'read'}
 			/>
 		</Route>
       </div>

@@ -9,7 +9,7 @@ const Book = props => {
     props.changeShelf(props.book,selectedShelf)
   }
   
-  const {title,authors,shelf,book}=props
+  const {title,shelf,book}=props
 	return(
   <li>
                         <div className="book">
@@ -30,7 +30,7 @@ const Book = props => {
                             </div>
                           </div>
                           <div className="book-title">{title}</div>
-                          <div className="book-authors">{authors}</div>
+                          <div className="book-authors">{book.authors && book.authors.join(', ')}</div>
                         </div>
                       </li>
   )

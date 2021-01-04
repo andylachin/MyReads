@@ -22,12 +22,14 @@ updateQuery = e => {
   }else{
   	BooksAPI.search(query).then(res=>{
   	this.setState({searchedBooks: res})
-      console.log(this.state.searchedBooks)
+     
   })
   }
 }
 
-
+ bookOnShelf=(book)=>{
+ 	 this.props.books.find(({id}) => id === book.id)
+   }
 
   
 changeShelf = (book,shelf) => {
@@ -35,10 +37,9 @@ changeShelf = (book,shelf) => {
 }
 
 
-
 	render(){
       const {query,searchedBooks}=this.state
-		const {defaultShelf}=this.props
+	const {bookOnShelf}=this
 		return(
         	<div className="search-books">
           	<div className="search-books-bar">
@@ -63,6 +64,7 @@ changeShelf = (book,shelf) => {
                      <ol className="books-grid">
 					{!searchedBooks.error && 
                     searchedBooks.map(book=>(
+                     
                     	<Book
                      		title={book.title}
 							authors={book.authors}
@@ -70,7 +72,7 @@ changeShelf = (book,shelf) => {
 							key={book.id}
 							changeShelf={this.changeShelf}
 							book={book}
-							shelf={defaultShelf}
+							shelf={bookOnShelf(book)?bookOnShelf.shelf:'none'}
                      	/>
                     ))
                     }
