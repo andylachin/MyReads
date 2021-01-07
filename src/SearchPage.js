@@ -33,7 +33,7 @@ updateQuery = e => {
 
   
 changeShelf = (book,shelf) => {
-	console.log(book,shelf)
+	this.props.addBook(book,shelf)
 }
 
 
