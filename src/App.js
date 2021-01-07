@@ -33,6 +33,7 @@ changeShelf=(book,shelf)=>{
       <div className="app">
        <Route exact path='/' render={()=>(
     	<div>
+				<h1>Hello, these are our books!</h1>
     		<BookShelves
     			changeShelf={this.changeShelf}
 				books={books}
